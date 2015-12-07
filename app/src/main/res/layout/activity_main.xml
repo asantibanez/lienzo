@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.andressantibanez.lienzo.LienzoView
+        android:id="@+id/lienzo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:lienzo_background="#eeeeee"
