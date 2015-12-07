@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="LienzoView">
+
+        <attr name="lienzo_background" format="color" />
+
+        <attr name="lienzo_orientation" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+
+    </declare-styleable>
+
+    <dimen name="lienzo_horizontal_gallery_default_height">248dp</dimen>
+
+</resources>

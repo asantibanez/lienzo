@@ -1,0 +1,13 @@
+
+
+#Files
+*.iml
+.gradle
+local.properties
+
+
+#Directories
+.idea
+.DS_Store
+build
+captures
