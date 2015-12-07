@@ -2,6 +2,8 @@ package com.andressantibanez.lienzo;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -42,6 +44,69 @@ public class LienzoView extends FrameLayout {
     public LienzoView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
+    }
+
+
+    /**
+     * Save state
+     */
+    protected Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+
+        SavedState savedState = new SavedState(superState);
+        savedState.setImagesPaths(mImagesPaths);
+
+        return savedState;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        SavedState savedState = (SavedState) state;
+        super.onRestoreInstanceState(savedState.getSuperState());
+
+        ArrayList<String> imagesPaths = savedState.getImagesPaths();
+        for (String imagePath :
+                imagesPaths) {
+            addImage(imagePath);
+        }
+
+        loadImages();
+    }
+
+
+    protected static class SavedState extends BaseSavedState {
+        public ArrayList<String> mImagesPaths;
+
+        public SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        public SavedState(Parcel in) {
+            super(in);
+            mImagesPaths = in.readArrayList(String.class.getClassLoader());
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeList(mImagesPaths);
+        }
+
+        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
+
+        public void setImagesPaths(ArrayList<String> imagesPaths) {
+            mImagesPaths = imagesPaths;
+        }
+        public ArrayList<String> getImagesPaths() {
+            return mImagesPaths;
+        }
     }
 
 
