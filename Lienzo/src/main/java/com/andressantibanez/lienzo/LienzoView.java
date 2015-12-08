@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import java.util.ArrayList;
@@ -56,6 +57,7 @@ public class LienzoView extends FrameLayout {
 
         SavedState savedState = new SavedState(superState);
         savedState.setImagesPaths(mImagesPaths);
+        savedState.setVisibility(getVisibility());
 
         return savedState;
     }
@@ -72,11 +74,14 @@ public class LienzoView extends FrameLayout {
         }
 
         loadImages();
+
+        setVisibility(savedState.getVisibility() == View.VISIBLE ? View.VISIBLE : View.GONE);
     }
 
 
     protected static class SavedState extends BaseSavedState {
-        public ArrayList<String> mImagesPaths;
+        private ArrayList<String> mImagesPaths;
+        private int mVisibility;
 
         public SavedState(Parcelable superState) {
             super(superState);
@@ -85,12 +90,14 @@ public class LienzoView extends FrameLayout {
         public SavedState(Parcel in) {
             super(in);
             mImagesPaths = in.readArrayList(String.class.getClassLoader());
+            mVisibility = in.readInt();
         }
 
         @Override
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
             out.writeList(mImagesPaths);
+            out.writeInt(mVisibility);
         }
 
         public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
@@ -107,6 +114,13 @@ public class LienzoView extends FrameLayout {
         }
         public ArrayList<String> getImagesPaths() {
             return mImagesPaths;
+        }
+
+        public void setVisibility(int visibility) {
+            mVisibility = visibility;
+        }
+        public int getVisibility() {
+            return mVisibility;
         }
     }
 
