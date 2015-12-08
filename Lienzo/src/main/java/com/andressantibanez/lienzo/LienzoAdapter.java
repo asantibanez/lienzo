@@ -11,7 +11,6 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Andrés on 12/7/15.
@@ -54,12 +53,12 @@ public class LienzoAdapter extends RecyclerView.Adapter<LienzoAdapter.ViewHolder
                 .into(holder.imagePlaceholder, new Callback() {
                     @Override
                     public void onSuccess() {
-                        mListener.onImageLoadSuccess();
+                        mListener.onImageSuccess();
                     }
 
                     @Override
                     public void onError() {
-
+                        mListener.onImageError();
                     }
                 });
 
@@ -96,6 +95,7 @@ public class LienzoAdapter extends RecyclerView.Adapter<LienzoAdapter.ViewHolder
      * Interface
      */
     public interface LienzoAdapterCallbacks {
-        void onImageLoadSuccess();
+        void onImageSuccess();
+        void onImageError();
     }
 }

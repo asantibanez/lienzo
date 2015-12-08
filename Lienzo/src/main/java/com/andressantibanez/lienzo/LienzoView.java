@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -183,6 +184,10 @@ public class LienzoView extends FrameLayout implements LienzoAdapter.LienzoAdapt
 
     public void loadImages() {
         mGalleryView.setAdapter(new LienzoAdapter(mImagesPaths, mIsVerticalGallery, this));
+        if (mImagesPaths.size() > 0)
+            mProgressBar.setVisibility(View.VISIBLE);
+        else
+            mProgressBar.setVisibility(View.GONE);
     }
 
     public void clearImages() {
@@ -195,8 +200,13 @@ public class LienzoView extends FrameLayout implements LienzoAdapter.LienzoAdapt
      * Adapter callbacks
      */
     @Override
-    public void onImageLoadSuccess() {
+    public void onImageSuccess() {
         mProgressBar.setVisibility(View.GONE);
     }
-    
+
+    @Override
+    public void onImageError() {
+        mProgressBar.setVisibility(View.GONE);
+        Toast.makeText(getContext(), "Error al mostrar algunas imágenes. Por favor, inténtelo nuevamente.", Toast.LENGTH_LONG).show();
+    }
 }
