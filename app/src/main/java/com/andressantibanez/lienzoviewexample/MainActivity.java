@@ -10,13 +10,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        //Horizontal
+        setContentView(R.layout.activity_main_scrollable);
+        //Vertical
+        //setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null ) {
             LienzoView lienzoView = (LienzoView) findViewById(R.id.lienzo);
-            lienzoView.addImage("http://rxboilerroom.com/wp-content/uploads/2015/04/The-Avengers.png");
-            lienzoView.addImage("http://images.cdn.stuff.tv/sites/stuff.tv/files/brands/avengers_age_of_ultron.jpg");
-            lienzoView.addImage("http://screenrant.com/wp-content/uploads/Avengers-2-Age-of-Ultron-Character-Posters-Collage.jpg");
+            lienzoView.addImage("http://img.sparknotes.com/content/sparklife/sparktalk/REDlaser_LargeWide.jpg");
+            lienzoView.addImage("http://static.tvtropes.org/pmwiki/pub/images/marvel-universe.jpg");
+            lienzoView.addImage("http://i.annihil.us/u/prod/marvel//universe3zx/images/8/8f/UltimateMarvelUniverse.jpg");
+            lienzoView.addImage("http://ak-hdl.buzzfed.com/static/2015-01/20/17/enhanced/webdr04/enhanced-17383-1421792979-8.jpg");
 
             lienzoView.loadImages();
         }

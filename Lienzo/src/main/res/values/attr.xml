@@ -12,6 +12,4 @@
 
     </declare-styleable>
 
-    <dimen name="lienzo_horizontal_gallery_default_height">248dp</dimen>
-
 </resources>

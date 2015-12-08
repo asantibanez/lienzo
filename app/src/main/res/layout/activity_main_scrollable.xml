@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <com.andressantibanez.lienzo.LienzoView
+            android:id="@+id/lienzo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:lienzo_background="#eeeeee"
+            app:lienzo_orientation="horizontal" />
+
+    </LinearLayout>
+</ScrollView>

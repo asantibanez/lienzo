@@ -2,13 +2,11 @@
 <ImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/image_placeholder"
-    android:layout_width="320dp"
-    android:layout_height="240dp"
+    android:layout_width="300dp"
+    android:layout_height="@dimen/lienzo_horizontal_gallery_height"
     android:scaleType="centerCrop"
-    android:layout_marginLeft="4dp"
-    android:layout_marginStart="4dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp"
-    android:background="#dddddd">
+    android:layout_marginRight="4dp"
+    android:layout_marginEnd="4dp"
+    android:background="#eeeeee">
 
 </ImageView>

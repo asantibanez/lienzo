@@ -8,8 +8,8 @@
     <com.andressantibanez.lienzo.LienzoView
         android:id="@+id/lienzo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:lienzo_background="#eeeeee"
-        app:lienzo_orientation="horizontal" />
+        app:lienzo_orientation="vertical" />
 
 </LinearLayout>

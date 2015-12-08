@@ -22,6 +22,7 @@ public class LienzoView extends FrameLayout {
     //Members
     ArrayList<String> mImagesPaths;
     boolean mIsVerticalGallery;
+    int mBackgroundColor;
 
 
     //Controls
@@ -114,16 +115,13 @@ public class LienzoView extends FrameLayout {
      * Custom implementation
      */
     public void init(AttributeSet attributeSet) {
+        //Empty images paths
         mImagesPaths = new ArrayList<>();
-        LayoutInflater.from(getContext()).inflate(R.layout.lienzo_layout, this, true);
 
 
-        //Get controls
-        mGalleryView = (RecyclerView) findViewById(R.id.gallery);
-
-
-        //Default orientation
+        //Default orientation and background
         mIsVerticalGallery = true;
+        mBackgroundColor = getResources().getColor(R.color.default_background);
 
 
         //Check for custom attributes
@@ -132,15 +130,27 @@ public class LienzoView extends FrameLayout {
             TypedArray a = getContext().getTheme().obtainStyledAttributes(attributeSet, R.styleable.LienzoView, 0, 0);
 
             //Background color
-            int backgroundColor = getResources().getColor(R.color.default_background);
-            backgroundColor = a.getColor(R.styleable.LienzoView_lienzo_background, backgroundColor);
-            mGalleryView.setBackgroundColor(backgroundColor);
+            mBackgroundColor = a.getColor(R.styleable.LienzoView_lienzo_background, mBackgroundColor);
 
             //Orientation
             int orientation = a.getInt(R.styleable.LienzoView_lienzo_orientation, 1);
             mIsVerticalGallery = orientation == 1;
 
+            a.recycle();
         }
+
+
+        //Inflate view and get controls
+        if (mIsVerticalGallery)
+            LayoutInflater.from(getContext()).inflate(R.layout.lienzo_layout_vertical, this, true);
+        else
+            LayoutInflater.from(getContext()).inflate(R.layout.lienzo_layout_horizontal, this, true);
+
+        mGalleryView = (RecyclerView) findViewById(R.id.gallery);
+
+
+        //Set background
+        mGalleryView.setBackgroundColor(mBackgroundColor);
 
 
         //Setup Gallery
@@ -149,16 +159,6 @@ public class LienzoView extends FrameLayout {
         mGalleryView.setLayoutManager(linearLayoutManager);
         mGalleryView.setAdapter(new LienzoAdapter(mImagesPaths, mIsVerticalGallery));
 
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        if (!mIsVerticalGallery) {
-            int requiredHeight = getContext().getResources().getDimensionPixelSize(R.dimen.lienzo_horizontal_gallery_default_height);
-            setMeasuredDimension(getMeasuredWidth(), requiredHeight);
-        }
     }
 
     public void addImage(String imageUrl) {
