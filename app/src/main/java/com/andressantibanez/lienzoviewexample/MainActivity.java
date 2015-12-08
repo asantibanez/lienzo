@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         //Horizontal
         setContentView(R.layout.activity_main_scrollable);
         //Vertical
-        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null ) {
             LienzoView lienzoView = (LienzoView) findViewById(R.id.lienzo);

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -20,11 +21,13 @@ public class LienzoAdapter extends RecyclerView.Adapter<LienzoAdapter.ViewHolder
 
     ArrayList<String> mImagesPaths;
     boolean mIsVerticalGallery;
+    LienzoAdapterCallbacks mListener;
 
 
-    public LienzoAdapter(ArrayList<String> imagesPaths, boolean isVerticalGallery) {
+    public LienzoAdapter(ArrayList<String> imagesPaths, boolean isVerticalGallery, LienzoAdapterCallbacks listener) {
         mImagesPaths = imagesPaths;
         mIsVerticalGallery = isVerticalGallery;
+        mListener = listener;
     }
 
 
@@ -48,7 +51,17 @@ public class LienzoAdapter extends RecyclerView.Adapter<LienzoAdapter.ViewHolder
 
         Picasso.with(holder.imagePlaceholder.getContext())
                 .load(imagePath)
-                .into(holder.imagePlaceholder);
+                .into(holder.imagePlaceholder, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        mListener.onImageLoadSuccess();
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
 
         holder.imagePlaceholder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,4 +91,11 @@ public class LienzoAdapter extends RecyclerView.Adapter<LienzoAdapter.ViewHolder
         }
     }
 
+
+    /**
+     * Interface
+     */
+    public interface LienzoAdapterCallbacks {
+        void onImageLoadSuccess();
+    }
 }

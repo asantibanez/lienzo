@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by Andrés on 12/7/15.
  */
-public class LienzoView extends FrameLayout {
+public class LienzoView extends FrameLayout implements LienzoAdapter.LienzoAdapterCallbacks {
 
 
     //Members
@@ -28,6 +29,7 @@ public class LienzoView extends FrameLayout {
 
     //Controls
     RecyclerView mGalleryView;
+    ProgressBar mProgressBar;
 
 
     /**
@@ -77,7 +79,6 @@ public class LienzoView extends FrameLayout {
 
         setVisibility(savedState.getVisibility() == View.VISIBLE ? View.VISIBLE : View.GONE);
     }
-
 
     protected static class SavedState extends BaseSavedState {
         private ArrayList<String> mImagesPaths;
@@ -161,6 +162,7 @@ public class LienzoView extends FrameLayout {
             LayoutInflater.from(getContext()).inflate(R.layout.lienzo_layout_horizontal, this, true);
 
         mGalleryView = (RecyclerView) findViewById(R.id.gallery);
+        mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
 
         //Set background
@@ -171,7 +173,7 @@ public class LienzoView extends FrameLayout {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(mIsVerticalGallery ? LinearLayoutManager.VERTICAL : LinearLayoutManager.HORIZONTAL);
         mGalleryView.setLayoutManager(linearLayoutManager);
-        mGalleryView.setAdapter(new LienzoAdapter(mImagesPaths, mIsVerticalGallery));
+        mGalleryView.setAdapter(new LienzoAdapter(mImagesPaths, mIsVerticalGallery, this));
 
     }
 
@@ -180,11 +182,21 @@ public class LienzoView extends FrameLayout {
     }
 
     public void loadImages() {
-        mGalleryView.setAdapter(new LienzoAdapter(mImagesPaths, mIsVerticalGallery));
+        mGalleryView.setAdapter(new LienzoAdapter(mImagesPaths, mIsVerticalGallery, this));
     }
 
     public void clearImages() {
         mImagesPaths = new ArrayList<>();
         loadImages();
     }
+
+
+    /**
+     * Adapter callbacks
+     */
+    @Override
+    public void onImageLoadSuccess() {
+        mProgressBar.setVisibility(View.GONE);
+    }
+    
 }
