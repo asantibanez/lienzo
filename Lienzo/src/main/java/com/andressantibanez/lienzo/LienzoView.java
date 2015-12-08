@@ -183,4 +183,8 @@ public class LienzoView extends FrameLayout {
         mGalleryView.setAdapter(new LienzoAdapter(mImagesPaths, mIsVerticalGallery));
     }
 
+    public void clearImages() {
+        mImagesPaths = new ArrayList<>();
+        loadImages();
+    }
 }
