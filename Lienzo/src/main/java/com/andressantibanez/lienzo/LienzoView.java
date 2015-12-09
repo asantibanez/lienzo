@@ -207,6 +207,6 @@ public class LienzoView extends FrameLayout implements LienzoAdapter.LienzoAdapt
     @Override
     public void onImageError() {
         mProgressBar.setVisibility(View.GONE);
-        Toast.makeText(getContext(), "Error al mostrar algunas imágenes. Por favor, inténtelo nuevamente.", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "Error al mostrar algunas imágenes. Por favor, inténtelo nuevamente.", Toast.LENGTH_SHORT).show();
     }
 }
